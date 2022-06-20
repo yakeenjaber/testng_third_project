@@ -1,10 +1,12 @@
 package scripts;
 
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.CarvanaSearchCarsPage;
+import utilities.Waiter;
 
-public class CarvanaTest extends Base{
+public class
+CarvanaTest extends Base{
 
     //TEST CASE 1
     //Given user is on "https://www.carvana.com/"
@@ -14,6 +16,7 @@ public class CarvanaTest extends Base{
     @Test(priority = 1, description = "Validate Carvana home page title and url")
     public void testCarvanaHomePageTitleAndUrl(){
         driver.get("https://www.carvana.com/");
+        Waiter.pause(3);
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.carvana.com/");
         Assert.assertEquals(driver.getTitle(),"Carvana | Buy & Finance Used Cars Online | At Home Delivery");
@@ -25,6 +28,7 @@ public class CarvanaTest extends Base{
     @Test(priority = 2, description = "Validate the Carvana logo")
     public void testCarvanaLogo(){
         driver.get("https://www.carvana.com/");
+        Waiter.pause(3);
         Assert.assertTrue(carvanaHomePage.carvanaLogo.isDisplayed());
     }
 
@@ -37,6 +41,7 @@ public class CarvanaTest extends Base{
     @Test(priority = 3, description = "Validate the main navigation section items")
     public void testMainNavigationItems() {
         driver.get("https://www.carvana.com/");
+        Waiter.pause(3);
         String[] expectedMainNavigationSectionText = {"HOW IT WORKS", "ABOUT CARVANA", "SUPPORT & CONTACT"};
         for (int i = 0; i < carvanaHomePage.mainNavigationItems.size(); i++) {
             Assert.assertTrue(carvanaHomePage.mainNavigationItems.get(i).isDisplayed());
@@ -58,6 +63,8 @@ public class CarvanaTest extends Base{
     @Test(priority = 4, description = "Validate the sign in error message")
     public void testSignInErrorMessage(){
         driver.get("https://www.carvana.com/");
+        Waiter.pause(3);
+
         carvanaHomePage.signInButton.click();
         carvanaHomePage.emailSignInInput.sendKeys("johndoe@gmail.com");
         carvanaHomePage.passwordSignInInput.sendKeys("abcd1234");
@@ -81,6 +88,7 @@ public class CarvanaTest extends Base{
     @Test(priority = 5, description = "Validate the search filter options and search button")
     public void testSearchFilterAndSearchButton(){
         driver.get("https://www.carvana.com/");
+        Waiter.pause(3);
         carvanaHomePage.searchCarsButton.click();
         String[] expectedSearchCarFilters = {"PAYMENT & PRICE", "MAKE & MODEL", "BODY TYPE", "YEAR & MILEAGE", "FEATURES", "MORE FILTERS"};
         for (int i = 0; i < carvanaSearchCarsPage.filterOptions.size(); i++) {
@@ -114,10 +122,12 @@ public class CarvanaTest extends Base{
     @Test(priority = 6, description = "Validate the search result tiles")
     public void testSearchResultTiles(){
         driver.get("https://www.carvana.com/");
+        Waiter.pause(3);
         carvanaHomePage.searchCarsButton.click();
         carvanaSearchCarsPage.searchBarInput.sendKeys("mercedes-benz");
         carvanaSearchCarsPage.goButton.click();
-        //Assert.assertTrue(driver.getCurrentUrl().contains("mercedes-benz"));
+        Waiter.pause(3);
+        Assert.assertTrue(driver.getCurrentUrl().contains("mercedes-benz"));
 
         for (int i = 0; i < carvanaMercedesBenzPage.resultTilePictures.size(); i++) {
             Assert.assertTrue(carvanaMercedesBenzPage.resultTilePictures.get(i).isDisplayed());
